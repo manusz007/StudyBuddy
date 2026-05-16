@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard — Intelligent Learning Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Chart.js for performance graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🎯 Dashboard</h1>
+        <p>Your complete learning overview</p>
+    </div>
+
+    {% if stats %}
+
+    <!-- ===== STAT CARDS ===== -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total_quizzes }}</div>
+            <div class="stat-label">📝 Total Quizzes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.avg_score }}%</div>
+            <div class="stat-label">📊 Average Score</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.best_score }}%</div>
+            <div class="stat-label">🏆 Best Score</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.latest_score }}%</div>
+            <div class="stat-label">🕐 Latest Score</div>
+        </div>
+    </div>
+
+    <!-- ===== PERFORMANCE CHART ===== -->
+    <div class="card">
+        <h2>📈 Performance Over Time</h2>
+        <br>
+        <canvas id="performanceChart" height="120"></canvas>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script>
+        // Get data from Flask (passed as JSON)
+        const scores = {{ stats.chart_scores | tojson }};
+        const labels = {{ stats.chart_labels | tojson }};
+
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Score %',
+                    data: scores,
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#667eea',
+                    pointRadius: 6,
+                    tension: 0.4,   // smooth curve
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: value => value + '%'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+
+    {% else %}
+
+    <!-- No data yet -->
+    <div class="card" style="text-align:center; padding:40px;">
+        <p style="font-size:3rem;">📭</p>
+        <p style="color:#718096; margin-top:10px;">
+            No quiz data yet. Take a quiz first to see your dashboard!
+        </p>
+        <br>
+        <a href="/" class="btn-link">📁 Upload Notes</a>
+    </div>
+
+    {% endif %}
+
+    <!-- ===== NAV BUTTONS ===== -->
+    <div style="text-align:center; margin:20px 0 30px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+        <a href="/"        class="btn-link">📁 Upload Notes</a>
+        <a href="/history" class="btn-link" style="background:#48bb78;">📋 Full History</a>
+        <a href="/viva"    class="btn-link" style="background:#ed8936;">🎓 Viva Generator</a>
+    </div>
+
+</body>
+</html>

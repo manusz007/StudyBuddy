@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results — Intelligent Learning Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="header">
+        <h1>📊 Quiz Results</h1>
+        <p>Here is how you performed!</p>
+    </div>
+
+    <!-- ===== SCORE CARD ===== -->
+    <div class="card score-card">
+        <h2 class="grade">{{ grade }}</h2>
+        <div class="score-display">
+            <span class="score-number">{{ score }}/{{ total }}</span>
+            <span class="score-percent">{{ percentage }}%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: {{ percentage }}%"></div>
+        </div>
+    </div>
+
+    <!-- ===== DETAILED RESULTS ===== -->
+    <div class="card">
+        <h2>📝 Detailed Review</h2>
+        <br>
+
+        {% for result in results %}
+        <div class="result-item {{ 'correct' if result.is_correct else 'wrong' }}">
+            <p class="result-question">Q{{ loop.index }}. {{ result.question }}</p>
+            <ul class="result-options">
+                {% for option in result.options %}
+                <li class="
+                    {% if option == result.correct_answer %}correct-option{% endif %}
+                    {% if option == result.user_answer and not result.is_correct %}wrong-option{% endif %}
+                ">
+                    {{ option }}
+                    {% if option == result.correct_answer %} ✅{% endif %}
+                    {% if option == result.user_answer and not result.is_correct %} ❌ (your answer){% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ===== BUTTONS ===== -->
+    <div style="text-align:center; margin-top:10px; margin-bottom:30px; display:flex; gap:15px; justify-content:center;">
+        <a href="/"        class="btn-link">📁 Upload New File</a>
+        <a href="/history" class="btn-link" style="background:#48bb78;">📊 View History</a>
+    </div>
+
+</body>
+</html>

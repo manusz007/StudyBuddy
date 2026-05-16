@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StudySphere AI — Smart Exam Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="nav-logo">⚡ StudyBuddy!</span>
+            <span class="nav-tagline">— Smart Exam Companion</span>
+        </div>
+        <div class="nav-right">
+            <a href="/"          class="nav-link active">Home</a>
+           <a href="/quizzes"  class="nav-link">Quizzes</a>
+            <a href="/dashboard" class="nav-link">Performance</a>
+            <a href="/viva"      class="nav-link">Viva Prep</a>
+            <a href="/calendar"  class="nav-btn-outline">📅 Calendar Alerts</a>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <div class="hero">
+        <h1>Transform <strong>Your Notes</strong> into <strong>Smart MCQs</strong></h1>
+        <p>Prep for CAT Exam &amp; Practical Viva with Ease</p>
+
+        <!-- Upload form inside hero -->
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="hero-form">
+            <input type="file" name="file" accept=".pdf,.txt" id="fileInput" required>
+            <label for="fileInput" class="hero-upload-btn">📤 Upload Notes</label>
+            <button type="submit" class="hero-submit-btn">Go 🚀</button>
+        </form>
+
+        {% if message %}
+            <p class="message {{ message_type }}" style="margin-top:15px;">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- ===== 3 FEATURE CARDS ===== -->
+    <div class="features-grid">
+
+        <!-- Card 1: Take a Quiz -->
+        <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3>Take a Quiz</h3>
+            <p>Start Practice Test</p>
+            <a href="/" class="feature-btn btn-orange">Start Quiz</a>
+        </div>
+
+        <!-- Card 2: Performance -->
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Performance Analysis</h3>
+            <p>Track Your Progress</p>
+            <a href="/dashboard" class="feature-btn btn-green">View Dashboard</a>
+        </div>
+
+        <!-- Card 3: Viva -->
+        <div class="feature-card">
+            <div class="feature-icon">🎤</div>
+            <h3>Viva Preparation</h3>
+            <p>Practice Viva Questions</p>
+            <a href="/viva" class="feature-btn btn-purple">Practice Now</a>
+        </div>
+
+    </div>
+
+    <!-- ===== STUDY REMINDERS ===== -->
+    <div class="reminders-section">
+
+        <div class="reminders-header">
+            <span class="reminder-icons">📅🔔</span>
+            <h3>Study Reminders</h3>
+        </div>
+
+        <div class="reminder-item reminder-yellow">
+            <span>📅</span>
+            <p>Upcoming Exam in <strong style="color:#c05621;">5 Days:</strong>
+               Focus on Quantitative Aptitude!</p>
+        </div>
+
+        <div class="reminder-item reminder-blue">
+            <span>🕐</span>
+            <p>Reminder: <strong>2 Days Left</strong> for
+               <span style="color:#2b6cb0;">Assignment Submission!</span></p>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER TEXT ===== -->
+    <p class="footer-text">🎯 Stay Focused and Achieve Your Goals!</p>
+
+    <!-- ===== TEXT PREVIEW (after upload) ===== -->
+    {% if preview %}
+    <div class="card" style="margin-top:20px;">
+        <h2>📄 Extracted Text Preview</h2>
+        <p style="color:#718096; margin-bottom:10px;">
+            Showing first 1000 characters:
+        </p>
+        <div class="text-preview">{{ preview }}</div>
+        <form action="/generate" method="POST">
+            <input type="hidden" name="full_text" value="{{ full_text }}">
+            <input type="hidden" name="filename"  value="{{ filename }}">
+            <br>
+            <button type="submit">Generate MCQs ✨</button>
+        </form>
+    </div>
+    {% endif %}
+
+</body>
+</html>

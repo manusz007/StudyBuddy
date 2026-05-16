@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz — Intelligent Learning Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>📝 MCQ Quiz</h1>
+        <p>Select the correct answer for each question</p>
+    </div>
+
+    <!-- ===== QUIZ FORM ===== -->
+    <!-- Each answer will be sent to /submit route -->
+    <form action="/submit" method="POST">
+
+        <!-- Loop through each MCQ using Jinja2 -->
+        {% for mcq in mcqs %}
+        <div class="card">
+
+            <!-- Question Number and Text -->
+            <h3>Q{{ loop.index }}. {{ mcq.question }}</h3>
+
+            <div class="options">
+                <!-- Loop through the 4 options -->
+                {% for option in mcq.options %}
+                <label class="option-label">
+
+                    <!-- Radio button -->
+                    <!-- name uses loop.index so each question has unique name -->
+                    <!-- value is the option text -->
+                    <input type="radio"
+                           name="answer_{{ loop.index0 }}"
+                           value="{{ option }}"
+                           required>
+
+                    {{ option }}
+                </label>
+                {% endfor %}
+            </div>
+
+        </div>
+        {% endfor %}
+
+        <!-- Submit Button -->
+        <div style="text-align:center; margin-top: 10px;">
+            <button type="submit">Submit Quiz 🎯</button>
+        </div>
+
+    </form>
+
+    <!-- Back button -->
+    <div style="text-align:center; margin-top: 15px;">
+        <a href="/" class="back-link">← Upload another file</a>
+    </div>
+
+</body>
+</html>

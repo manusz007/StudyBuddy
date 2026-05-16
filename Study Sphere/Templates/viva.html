@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viva Generator — Intelligent Learning Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="header">
+        <h1>🎓 Viva Question Generator</h1>
+        <p>Upload your notes and get viva questions to practice!</p>
+    </div>
+
+    <!-- ===== UPLOAD FORM ===== -->
+    <div class="card">
+        <h2>📁 Upload Your Notes</h2>
+        <p>Supported formats: <strong>.txt</strong> or <strong>.pdf</strong></p>
+
+        <form action="/viva" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".pdf,.txt" required>
+            <br><br>
+            <button type="submit">Generate Viva Questions 🎓</button>
+        </form>
+
+        {% if message %}
+            <p class="message {{ message_type }}">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- ===== VIVA QUESTIONS ===== -->
+    {% if viva_questions %}
+    <div class="card">
+        <h2>❓ Viva Questions for "{{ filename }}"</h2>
+        <p style="color:#718096; margin-bottom:20px;">
+            Click on each question to reveal the answer hint!
+        </p>
+
+        {% for vq in viva_questions %}
+        <div class="viva-item">
+
+            <!-- Question -->
+            <div class="viva-question" onclick="toggleAnswer({{ loop.index }})">
+                <span>Q{{ loop.index }}. {{ vq.question }}</span>
+                <span class="toggle-icon" id="icon-{{ loop.index }}">▼</span>
+            </div>
+
+            <!-- Answer (hidden by default, shown on click) -->
+            <div class="viva-answer" id="answer-{{ loop.index }}">
+                <strong>💡 Hint from your notes:</strong><br><br>
+                {{ vq.answer }}
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- ===== NAV BUTTONS ===== -->
+    <div style="text-align:center; margin:10px 0 30px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+        <a href="/"          class="btn-link">📁 Upload Notes</a>
+        <a href="/dashboard" class="btn-link" style="background:#9f7aea;">🎯 Dashboard</a>
+    </div>
+
+    <!-- Toggle answer visibility -->
+    <script>
+        function toggleAnswer(index) {
+            const answer = document.getElementById('answer-' + index);
+            const icon   = document.getElementById('icon-'   + index);
+
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.textContent     = '▼';
+            } else {
+                answer.style.display = 'block';
+                icon.textContent     = '▲';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,625 @@
+/* ===========================
+   GLOBAL RESET
+=========================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    color: #333;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+.navbar {
+    background: #1a2f5e;
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-logo {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.nav-tagline {
+    color: #a0b4d6;
+    font-size: 1rem;
+    margin-left: 6px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    color: #a0b4d6;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: white;
+    border-bottom: 2px solid #4a90d9;
+    padding-bottom: 2px;
+}
+
+.nav-btn-outline {
+    background: #4a90d9;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.nav-btn-outline:hover {
+    background: #357abd;
+}
+
+/* ===========================
+   HERO SECTION
+=========================== */
+.hero {
+    background: linear-gradient(135deg, #1a2f5e 0%, #2a5298 60%, #4a90d9 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 20px 70px;
+}
+
+.hero h1 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.hero h1 strong {
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #c8d8f0;
+    margin-bottom: 30px;
+}
+
+/* Hero upload form */
+.hero-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Hide the default file input */
+#fileInput {
+    display: none;
+}
+
+/* Styled label acts as the upload button */
+.hero-upload-btn {
+    background: #4a90d9;
+    color: white;
+    padding: 14px 36px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+}
+
+.hero-upload-btn:hover {
+    background: #357abd;
+}
+
+.hero-submit-btn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.hero-submit-btn:hover {
+    background: #27ae60;
+}
+
+/* ===========================
+   FEATURE CARDS
+=========================== */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: -30px auto 30px;   /* pulls cards up into hero */
+    padding: 0 20px;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    color: #2d3748;
+    margin-bottom: 6px;
+}
+
+.feature-card p {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* Feature buttons */
+.feature-btn {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+}
+
+.feature-btn:hover {
+    opacity: 0.85;
+}
+
+.btn-orange { background: #e8743b; color: white; }
+.btn-green  { background: #27ae60; color: white; }
+.btn-purple { background: #7c3aed; color: white; }
+
+/* ===========================
+   STUDY REMINDERS
+=========================== */
+.reminders-section {
+    max-width: 1000px;
+    margin: 0 auto 20px;
+    padding: 0 20px;
+    background: #e8eef7;
+    border-radius: 12px;
+}
+
+.reminders-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 20px 10px;
+}
+
+.reminder-icons {
+    font-size: 2rem;
+}
+
+.reminders-header h3 {
+    font-size: 1.2rem;
+    color: #2d3748;
+}
+
+.reminder-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin: 8px 16px;
+    font-size: 0.95rem;
+}
+
+.reminder-yellow {
+    background: #fef3cd;
+    color: #744210;
+}
+
+.reminder-blue {
+    background: #dbeafe;
+    color: #1e3a5f;
+}
+
+/* ===========================
+   FOOTER TEXT
+=========================== */
+.footer-text {
+    text-align: center;
+    padding: 20px;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* ===========================
+   CARD (generic white box)
+=========================== */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===========================
+   MESSAGES
+=========================== */
+.message {
+    margin-top: 15px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.success {
+    background: #c6f6d5;
+    color: #276749;
+}
+
+.error {
+    background: #fed7d7;
+    color: #9b2335;
+}
+
+/* ===========================
+   TEXT PREVIEW
+=========================== */
+.text-preview {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #4a5568;
+    white-space: pre-wrap;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ===========================
+   BUTTONS (generic)
+=========================== */
+button {
+    background: #4a90d9;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #357abd;
+}
+
+.btn-link {
+    display: inline-block;
+    background: #4a90d9;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+.btn-link:hover {
+    background: #357abd;
+}
+
+/* ===========================
+   QUIZ OPTIONS
+=========================== */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.option-label:hover {
+    border-color: #4a90d9;
+    background: #ebf4ff;
+}
+
+.card h3 {
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+.back-link {
+    color: #4a90d9;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   SCORE CARD
+=========================== */
+.score-card { text-align: center; }
+
+.grade {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.score-display {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.score-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #4a90d9;
+}
+
+.score-percent {
+    font-size: 1.5rem;
+    color: #718096;
+}
+
+.progress-bar-bg {
+    background: #e2e8f0;
+    border-radius: 999px;
+    height: 16px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, #4a90d9, #7c3aed);
+    height: 100%;
+    border-radius: 999px;
+}
+
+/* ===========================
+   RESULTS
+=========================== */
+.result-item {
+    border-left: 4px solid #e2e8f0;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+    background: #f7fafc;
+}
+
+.result-item.correct {
+    border-left-color: #48bb78;
+    background: #f0fff4;
+}
+
+.result-item.wrong {
+    border-left-color: #fc8181;
+    background: #fff5f5;
+}
+
+.result-question {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.result-options {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.result-options li {
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: #4a5568;
+}
+
+.correct-option {
+    background: #c6f6d5;
+    color: #276749 !important;
+    font-weight: 600;
+}
+
+.wrong-option {
+    background: #fed7d7;
+    color: #9b2335 !important;
+}
+
+/* ===========================
+   STATS GRID
+=========================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #4a90d9;
+}
+
+.stat-label {
+    color: #718096;
+    margin-top: 5px;
+    font-size: 0.9rem;
+}
+
+/* ===========================
+   HISTORY TABLE
+=========================== */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.history-table th {
+    background: #f7fafc;
+    padding: 12px;
+    text-align: left;
+    color: #4a5568;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.history-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.history-table tr:hover { background: #f7fafc; }
+
+.percent-badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.badge-green  { background: #c6f6d5; color: #276749; }
+.badge-blue   { background: #bee3f8; color: #2a69ac; }
+.badge-yellow { background: #fefcbf; color: #975a16; }
+.badge-red    { background: #fed7d7; color: #9b2335; }
+
+/* ===========================
+   VIVA
+=========================== */
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.viva-item {
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+}
+
+.viva-question {
+    background: #f7fafc;
+    padding: 14px 16px;
+    font-weight: 600;
+    color: #2d3748;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.viva-question:hover { background: #ebf4ff; }
+
+.toggle-icon {
+    color: #4a90d9;
+    font-size: 0.85rem;
+}
+
+.viva-answer {
+    display: none;
+    padding: 16px;
+    background: white;
+    color: #4a5568;
+    line-height: 1.7;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ===========================
+   RESPONSIVE (mobile)
+=========================== */
+@media (max-width: 650px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+}
+
+.reminder-green {
+    background: #c6f6d5;
+    color: #276749;
+}

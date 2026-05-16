@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calendar Alerts — StudySphere AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="nav-logo">⚡ StudySphere AI</span>
+            <span class="nav-tagline">— Smart Exam Companion</span>
+        </div>
+        <div class="nav-right">
+            <a href="/"          class="nav-link">Home</a>
+            <a href="/quizzes"   class="nav-link">Quizzes</a>
+            <a href="/dashboard" class="nav-link">Performance</a>
+            <a href="/viva"      class="nav-link">Viva Prep</a>
+            <a href="/calendar"  class="nav-btn-outline active">📅 Calendar Alerts</a>
+        </div>
+    </nav>
+
+    <!-- ===== HEADER ===== -->
+    <div class="hero" style="padding: 40px 20px;">
+        <h1>📅 <strong>Calendar Alerts</strong></h1>
+        <p>Stay on top of your exams and deadlines!</p>
+    </div>
+
+    <!-- ===== ADD REMINDER FORM ===== -->
+    <div class="card" style="margin-top:20px;">
+        <h2>➕ Add New Reminder</h2>
+        <br>
+
+        <form action="/calendar/add" method="POST">
+
+            <label style="font-weight:600; color:#4a5568;">📌 Reminder Title</label>
+            <input type="text" name="title" placeholder="e.g. Maths Exam"
+                   required style="
+                   display:block; width:100%; padding:10px;
+                   margin: 8px 0 15px; border:2px solid #e2e8f0;
+                   border-radius:8px; font-size:1rem;">
+
+            <label style="font-weight:600; color:#4a5568;">📅 Date</label>
+            <input type="date" name="date" required style="
+                   display:block; width:100%; padding:10px;
+                   margin: 8px 0 15px; border:2px solid #e2e8f0;
+                   border-radius:8px; font-size:1rem;">
+
+            <label style="font-weight:600; color:#4a5568;">🏷️ Type</label>
+            <select name="reminder_type" style="
+                    display:block; width:100%; padding:10px;
+                    margin: 8px 0 20px; border:2px solid #e2e8f0;
+                    border-radius:8px; font-size:1rem; background:white;">
+                <option value="exam">📝 Exam</option>
+                <option value="assignment">📋 Assignment</option>
+                <option value="study">📚 Study Session</option>
+                <option value="other">🔔 Other</option>
+            </select>
+
+            <button type="submit">Add Reminder 🔔</button>
+        </form>
+
+        {% if message %}
+            <p class="message {{ message_type }}" style="margin-top:15px;">
+                {{ message }}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- ===== REMINDERS LIST ===== -->
+    <div class="card">
+        <h2>🔔 Your Reminders</h2>
+        <br>
+
+        {% if reminders %}
+            {% for r in reminders %}
+            <div class="reminder-item
+                {% if r.reminder_type == 'exam' %}reminder-yellow
+                {% elif r.reminder_type == 'assignment' %}reminder-blue
+                {% else %}reminder-green{% endif %}"
+                style="margin-bottom:10px;">
+
+                <span>
+                    {% if r.reminder_type == 'exam' %}📝
+                    {% elif r.reminder_type == 'assignment' %}📋
+                    {% elif r.reminder_type == 'study' %}📚
+                    {% else %}🔔{% endif %}
+                </span>
+
+                <div style="flex:1;">
+                    <strong>{{ r.title }}</strong>
+                    <span style="color:#718096; font-size:0.85rem;
+                                 margin-left:10px;">{{ r.date }}</span>
+                </div>
+
+                <!-- Delete button -->
+                <form action="/calendar/delete/{{ r.id }}" method="POST"
+                      style="margin:0;">
+                    <button type="submit" style="
+                            background:#fed7d7; color:#9b2335;
+                            padding:5px 12px; font-size:0.8rem;
+                            border-radius:6px;">
+                        ✕
+                    </button>
+                </form>
+
+            </div>
+            {% endfor %}
+
+        {% else %}
+            <div style="text-align:center; padding:30px; color:#718096;">
+                <p style="font-size:3rem;">📭</p>
+                <p>No reminders yet. Add one above!</p>
+            </div>
+        {% endif %}
+
+    </div>
+
+    <!-- ===== BACK BUTTON ===== -->
+    <div style="text-align:center; margin-bottom:30px;">
+        <a href="/" class="btn-link">← Back to Home</a>
+    </div>
+
+</body>
+</html>

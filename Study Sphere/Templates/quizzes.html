@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quizzes — StudySphere AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="nav-logo">⚡ StudySphere AI</span>
+            <span class="nav-tagline">— Smart Exam Companion</span>
+        </div>
+        <div class="nav-right">
+            <a href="/"          class="nav-link">Home</a>
+            <a href="/quizzes"   class="nav-link active">Quizzes</a>
+            <a href="/dashboard" class="nav-link">Performance</a>
+            <a href="/viva"      class="nav-link">Viva Prep</a>
+            <a href="/history"   class="nav-btn-outline">📅 Calendar Alerts</a>
+        </div>
+    </nav>
+
+    <!-- ===== HEADER ===== -->
+    <div class="hero" style="padding: 40px 20px;">
+        <h1>📝 Take a <strong>Quiz</strong></h1>
+        <p>Upload your notes and generate MCQs instantly</p>
+    </div>
+
+    <!-- ===== UPLOAD FORM ===== -->
+    <div class="card" style="margin-top: 20px;">
+        <h2>📁 Upload Your Notes</h2>
+        <p style="color:#718096; margin: 8px 0 15px;">
+            Supported formats: <strong>.txt</strong> or <strong>.pdf</strong>
+        </p>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".pdf,.txt" required
+                   style="display:block; padding:10px; border: 2px dashed #cbd5e0;
+                          border-radius:8px; width:100%; background:#f7fafc;
+                          cursor:pointer; margin-bottom:15px;">
+            <button type="submit">Upload & Extract Text 🚀</button>
+        </form>
+
+        {% if message %}
+            <p class="message {{ message_type }}">{{ message }}</p>
+        {% endif %}
+    </div>
+
+    <!-- ===== TEXT PREVIEW ===== -->
+    {% if preview %}
+    <div class="card">
+        <h2>📄 Extracted Text Preview</h2>
+        <p style="color:#718096; margin-bottom:10px;">
+            Showing first 1000 characters:
+        </p>
+        <div class="text-preview">{{ preview }}</div>
+        <form action="/generate" method="POST">
+            <input type="hidden" name="full_text" value="{{ full_text }}">
+            <input type="hidden" name="filename"  value="{{ filename }}">
+            <br>
+            <button type="submit">Generate MCQs ✨</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- ===== TIPS ===== -->
+    <div class="card">
+        <h2>💡 Tips for Best Results</h2>
+        <br>
+        <div class="reminder-item reminder-yellow" style="margin:0 0 10px;">
+            <span>📄</span>
+            <p>Use files with <strong>at least 10-12 sentences</strong> for good MCQs</p>
+        </div>
+        <div class="reminder-item reminder-blue" style="margin:0 0 10px;">
+            <span>✍️</span>
+            <p>Plain <strong>.txt files</strong> work best for MCQ generation</p>
+        </div>
+        <div class="reminder-item reminder-yellow" style="margin:0;">
+            <span>📚</span>
+            <p>Use your <strong>actual study notes</strong> for exam-relevant questions</p>
+        </div>
+    </div>
+
+</body>
+</html>
